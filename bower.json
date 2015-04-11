@@ -1,0 +1,25 @@
+{
+  "name": "custom-grid",
+  "version": "0.0.1",
+  "homepage": "https://github.com/EvanLovely/custom-grid",
+  "authors": [
+    "Evan Lovely <evan@evanlovely.com>"
+  ],
+  "description": "Grids that CMS's can customize",
+  "main": "_custom-grid.scss",
+  "keywords": [
+    "grid",
+    "grids",
+    "scss",
+    "sass",
+    "layout"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
