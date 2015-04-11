@@ -1,0 +1,173 @@
+.custom-grid {
+  width: 100%;
+  overflow: hidden;
+  img {
+    width: 100%;
+  }
+  .custom-grid__row {
+    overflow: hidden;
+  }
+  .custom-grid__item {
+    overflow: hidden;
+  }
+
+  // gutters
+  &.custom-grid-gutter {
+    padding: 0 20px 20px 0;
+    .custom-grid__item-gutter {
+      padding: 20px 0 0 20px;
+    }
+  }
+
+  @include layout(4, 0) {
+
+    @for $width from 1 through 4 {
+      @for $location from 1 through 4 {
+
+        [data-width-sm="#{$width}"][data-location-sm="#{$location}"] {
+          @include grid-span($width, $location);
+
+          @for $height from 1 through 10 {
+
+            &[data-height-sm="#{$height}"] {
+              $ratio: ($width / ($height * .75));
+              padding-top: (column-span($width, $location) / $ratio);
+            }
+            &[data-margin-top-sm="#{$height}"] {
+              $ratio: ($width / ($height * .75));
+              margin-top: (column-span($width, $location) / $ratio);
+            }
+
+          }
+        }
+
+      }
+    }
+
+    .custom-grid__item.sm-grid-clear--left {
+      clear: left;
+    }
+    .custom-grid__item.sm-grid-clear--right {
+      clear: right;
+    }
+    .custom-grid__item.sm-grid-clear--both {
+      clear: both;
+    }
+
+    .custom-grid__item {
+      position: relative;
+      height: 0;
+    }
+    .custom-grid__item-inner {
+      // intrinsic ratio child
+      display: block;
+      position: absolute;
+      width: 100% !important;
+      height: 100% !important;
+      top: 0;
+      margin: 0;
+    }
+  }
+
+  @media only screen and (min-width: #{$width--large}) {
+    @include layout(4, 0) {
+
+      [data-margin-top-sm] {
+        margin-top: 0;
+      }
+
+      @for $width from 1 through 4 {
+        @for $location from 1 through 4 {
+
+          [data-width-lg="#{$width}"][data-location-lg="#{$location}"] {
+            @include grid-span($width, $location);
+
+            @for $height from 1 through 3 {
+
+              &[data-height-lg="#{$height}"] {
+                $ratio: ($width / ($height * .75));
+                padding-top: (column-span($width, $location) / $ratio);
+              }
+
+              &[data-margin-top-lg="#{$height}"] {
+                $ratio: ($width / ($height * .75));
+                margin-top: (column-span($width, $location) / $ratio);
+              }
+
+            }
+          }
+
+        }
+      }
+
+      .sm-grid-hide {
+        display: block;
+      }
+      .custom-grid__item[class*="sm-grid-clear"] {
+        clear: none;
+      }
+      .custom-grid__item.lg-grid-clear--left {
+        clear: left;
+      }
+      .custom-grid__item.lg-grid-clear--right {
+        clear: right;
+      }
+      .custom-grid__item.lg-grid-clear--both {
+        clear: both;
+      }
+    }
+  }
+
+}
+
+.custom-grid--debug {
+  .custom-grid__row {
+    counter-reset: grid-item;
+    > * {
+      outline: dotted 1px red;
+      position: relative;
+      &:hover {
+        &:before,
+        &:after {
+          background: hsla(0, 0%, 0%, 0.0);
+          font-size: 1px;
+        }
+      }
+      &:before {
+        content: counter(grid-item);
+        counter-increment: grid-item;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: hsla(0, 0%, 0%, 0.5);
+        padding-top: 15px;
+      }
+
+    }
+    padding-top: 32px;
+    position: relative;
+    &:before {
+      content: attr(data-name);
+      @include h4();
+      position: absolute;
+      top: 0;
+      left: 5px;
+    }
+  }
+  &-dark .custom-grid__row {
+    > * {
+      outline: none;
+      &:before {
+        background: hsl(0, 0%, 20%);
+        border: solid 3px white;
+      }
+    }
+  }
+}
